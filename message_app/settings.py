@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
+import sys
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -82,16 +83,37 @@ WSGI_APPLICATION = "message_app.wsgi.app"
 #         "NAME": BASE_DIR / "db.sqlite3",
 #     }
 # }
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("PGDATABASE"),
-        "USER": os.getenv("PGUSER"),
-        "PASSWORD": os.getenv("PGPASSWORD"),
-        "HOST": os.getenv("PGHOST"),
-        "PORT": os.getenv("PGPORT"),
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.getenv("PGDATABASE"),
+#         "USER": os.getenv("PGUSER"),
+#         "PASSWORD": os.getenv("PGPASSWORD"),
+#         "HOST": os.getenv("PGHOST"),
+#         "PORT": os.getenv("PGPORT"),
+#     }
+# }
+
+IS_TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+if IS_TESTING:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+            }
     }
-}
+else:
+    DATABASES = {
+            "default": {
+                "ENGINE": "django.db.backends.postgresql",
+                "NAME": os.getenv("PGDATABASE"),
+                "USER": os.getenv("PGUSER"),
+                "PASSWORD": os.getenv("PGPASSWORD"),
+                "HOST": os.getenv("PGHOST"),
+                "PORT": os.getenv("PGPORT"),
+            }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

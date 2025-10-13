@@ -1,8 +1,5 @@
-# translator for model to json
-# Create, Read, Update, Delete
-from rest_framework.serializers import Serializer, ModelSerializer
-
-from message.models import Chat_room
+from rest_framework.serializers import ModelSerializer
+from message.models import Chat_room, Message
 
 
 class Chat_roomSerializer(ModelSerializer):
@@ -10,9 +7,8 @@ class Chat_roomSerializer(ModelSerializer):
         model = Chat_room
         fields = '__all__'
 
+
 class MessageSerializer(ModelSerializer):
     class Meta:
-        model = Chat_room
+        model = Message  # ✅ correct model
         fields = '__all__'
-
-

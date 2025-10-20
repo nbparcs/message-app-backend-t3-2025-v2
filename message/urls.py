@@ -12,8 +12,8 @@ from message.viewsets import Chat_roomViewSet, MessageViewSet
 
 router = DefaultRouter()
 
-router.register(r"chat_rooms", Chat_roomViewSet, basename='chat_room')
-router.register(r"messages", MessageViewSet, basename='message')
+router.register(r"chat_rooms", Chat_roomViewSet, basename='chat_rooms')
+router.register(r"messages", MessageViewSet, basename='messages')
 
 urlpatterns = [
     path('', include(router.urls)),

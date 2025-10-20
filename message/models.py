@@ -5,6 +5,10 @@ from django.db import models
 
 class Chat_room(models.Model):
     name = models.CharField(max_length=100)
+    users = models.ManyToManyField(User, related_name="chat_rooms")
+
+    def __str__(self):
+        return self.name
 
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -12,5 +16,7 @@ class Message(models.Model):
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     chat_room = models.ForeignKey(Chat_room, on_delete=models.CASCADE)
+
+
 
 

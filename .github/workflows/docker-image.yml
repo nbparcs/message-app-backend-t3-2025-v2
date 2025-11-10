@@ -66,4 +66,3 @@ jobs:
             sudo docker compose run --rm web python manage.py migrate --noinput || true
             sudo docker compose ps
           EOSSH
-
